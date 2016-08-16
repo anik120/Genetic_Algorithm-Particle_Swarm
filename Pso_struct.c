@@ -32,7 +32,7 @@ int main(){
 	clock_t begin, end;
 	double time_spent;
 	begin = clock();  
-	inputFile = fopen("myciel7.col","r");
+	inputFile = fopen("Data_set/myciel7.col","r");
 	int p1 = 0, p2 = 0;
 	if (inputFile == NULL){
 		printf("File failed to open.\n");
@@ -85,7 +85,7 @@ int main(){
 		for (i = 1; i <= PARTICLES; i++){
 			ctr = 1;
 			velocity = (particles[i]->fitness - gbest);
-			printf("%d \n",velocity);	    
+			//printf("%d \n",velocity);	    
 			while (ctr <= velocity){
 				index1 = (rand()%n)+1;
 				flag = 0;

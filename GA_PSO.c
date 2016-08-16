@@ -34,7 +34,7 @@ int main(){
 	int a[SIZE][SIZE], y;
 	FILE * inputFile;
 	int entries, i;
-	for (i = 0; i < 72; i++) {
+	for (i = 0; i < sizeof(files)/sizeof(files[1]); i++) {
 		char file[] = "Data_set/";
 		strcat(file, files[i]);
 		inputFile = fopen(file, "r");
@@ -276,7 +276,7 @@ void crossover(int n, int a[SIZE][SIZE]){
 	rand_prob = ( rand() % noOfChromosomes ) / noOfChromosomes;
 	if( rand_prob < cross_prob ){                    //creating new chromosomes(temp1 and temp2) via crossover 
 		index = (rand() % n) +1;
-		printf("\n %f \n", index);
+		//printf("\n %f \n", index);
 		for(i = 1; i <= index; i++){
 			temp1[i] = colour[1][i];
 			temp2[i] = colour[2][i];

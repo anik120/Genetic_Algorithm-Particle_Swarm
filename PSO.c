@@ -264,21 +264,19 @@ int main()
 	int a[SIZE][SIZE], y;
 	FILE * inputFile;
 	int entries, i;
-	for (i = 0; i < 72; i++) {
-		for (i = 0; i < 72; i++) {
-			char file[] = "Data_set/";
-			strcat(file, files[i]);
-			inputFile = fopen(file, "r");
-			printf("%s: ", files[i]);
-			int p1 = 0, p2 = 0,j; // p1, p2 correspondes to the pair of points(vertices) in each line of an input file.
+	for (i = 0; i < sizeof(files)/sizeof(files[1]) ; i++) {
+		char file[] = "Data_set/";
+		strcat(file, files[i]);
+		inputFile = fopen(file, "r");
+		printf("%s: ", files[i]);
+		int p1 = 0, p2 = 0,j; // p1, p2 correspondes to the pair of points(vertices) in each line of an input file.
 
-			if(inputFile == NULL){
-				printf("File failed to open.");
-				exit(EXIT_FAILURE);
-			}
-			fscanf(inputFile, "%d", &entries);
-			adjacencyMatrix(entries, p1, p2, inputFile); //creating adjacency matrix from entires in input file.
+		if(inputFile == NULL){
+			printf("File failed to open.");
+			exit(EXIT_FAILURE);
 		}
+		fscanf(inputFile, "%d", &entries);
+		adjacencyMatrix(entries, p1, p2, inputFile); //creating adjacency matrix from entires in input file.
 	}
 	exit(0);
 }

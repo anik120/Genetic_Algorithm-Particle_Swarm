@@ -39,7 +39,7 @@ int main()
   clock_t begin, end;
   double time_spent;
   begin = clock();  
-  inputFile = fopen("miles1500.col","r");
+  inputFile = fopen("Data_set/miles1500.col","r");
   int p1 = 0, p2 = 0;
   if (inputFile == NULL)
   {

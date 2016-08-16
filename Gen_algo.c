@@ -36,7 +36,7 @@ int main(){
 	clock_t begin, end;
 	double time_spent;
 	begin = clock();  
-	for (i = 0; i < 72; i++) {
+	for (i = 0; i < sizeof(files)/sizeof(files[1]) ; i++) {
 		char file[] = "Data_set/";
 		strcat(file, files[i]);
 		inputFile = fopen(file, "r");
