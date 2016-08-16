@@ -1,12 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include<string.h>
 
 #define cross_prob 0.8
 #define mute_prob 0.5
 #define size 500
 #define acceptance_prob 0.4
 #define noOfChromosomes 10
+#define noOfIterations 10000
 
 int n,a[size][size];
 struct data{
@@ -25,7 +27,7 @@ void mutation();
 void special_mutation();
 
 const char * files[]=
-{"DSJC125.1.col","DSJC125.5.col","DSJC125.9.col","DSJC250.1.col","DSJC250.5.col","DSJC250.9.col","DSJC500.1.col","DSJC500.5.col","DSJC500.9.col","DSJR500.1.col","DSJR500.1c.col","DSJR500.5.col","flat300_20_0.col","flat300_26_0.col","flat300_28_0.col","fpsol2.i.1.col","fpsol2.i.2.col","fpsol2.i.3.col","inithx.i.1.col","inithx.i.2.col","inithx.i.3.col","le450_15a.col","le450_15b.col","le450_15c.col","le450_15d.col","le450_25a.col","le450_25b.col","le450_25c.col","le450_25d.col","le450_5a.col","le450_5b.col","le450_5c.col","le450_5d.col","mulsol.i.1.col","mulsol.i.2.col","mulsol.i.3.col","mulsol.i.4.col","mulsol.i.5.col","school1.col","school1_nsh.col","zeroin.i.1.col","zeroin.i.2.col","zeroin.i.3.col","anna.col","david.col","homer.col","huck.col","jean.col","games120.col","miles1000.col","miles1500.col","miles250.col","miles500.col","miles750.col","queen10_10.col","queen11_11.col","queen12_12.col","queen13_13.col","queen14_14.col","queen15_15.col","queen16_16.col","queen5_5.col","queen6_6.col","queen7_7.col","queen8_12.col","queen8_8.col","queen9_9.col","myciel3.col","myciel4.col","myciel5.col","myciel6.col","myciel7.col"};
+{"DSJC125.1.col","DSJC125.5.col","DSJC250.1.col","DSJC250.5.col","DSJC250.9.col","DSJC500.1.col","DSJC500.5.col","DSJC500.9.col","DSJR500.1.col","DSJR500.1c.col","DSJR500.5.col","flat300_20_0.col","flat300_26_0.col","flat300_28_0.col","fpsol2.i.1.col","fpsol2.i.2.col","fpsol2.i.3.col","inithx.i.3.col","le450_15a.col","le450_15b.col","le450_15c.col","le450_15d.col","le450_25a.col","le450_25b.col","le450_25c.col","le450_25d.col","le450_5a.col","le450_5b.col","le450_5c.col","le450_5d.col","mulsol.i.4.col","mulsol.i.5.col","school1.col","school1_nsh.col","zeroin.i.1.col","zeroin.i.2.col","zeroin.i.3.col","anna.col","david.col","huck.col","jean.col","miles1500.col","miles250.col","miles500.col","miles750.col","queen10_10.col","queen11_11.col","queen12_12.col","queen13_13.col","queen14_14.col","queen16_16.col","queen5_5.col","queen6_6.col","queen7_7.col","queen8_12.col","queen8_8.col","queen9_9.col","myciel3.col","myciel5.col","myciel7.col"};
 
 int main(){
 	int y, i, j, temp_colour, ctr = 1, min_no, probability;
@@ -34,61 +36,66 @@ int main(){
 	clock_t begin, end;
 	double time_spent;
 	begin = clock();  
-	inputFile = fopen("Data_set/mulsol.i.1.col","r");
-	int p1 = 0, p2 = 0;
-	if(inputFile == NULL){
-		printf("File failed to open.\n");
-		exit(EXIT_FAILURE);
-	}
-	fscanf(inputFile, "%d" , &entries);
-	adjacencyMatrix(a, entries, p1, p2, inputFile);
-	n = entries;
-	for(i = 1; i <= 30; i++){
-		chromosomes[i] = (struct data *)malloc(sizeof(struct data));
-	}
-	//initiallizing used colour array with -1
-	for(i = 1; i <= 30; i++){
-		for(j = 1;j <= n; j++){
-			chromosomes[i]->used_colours[j-1] = -1;
+	for (i = 0; i < 72; i++) {
+		char file[] = "Data_set/";
+		strcat(file, files[i]);
+		inputFile = fopen(file, "r");
+		printf("%s: ", files[i]);
+		int p1 = 0, p2 = 0;
+		if(inputFile == NULL){
+			printf("File failed to open.\n");
+			exit(EXIT_FAILURE);
 		}
-	}
-	//initialising population
-	srand( (unsigned) time(NULL) );
-	for(i = 1; i <= 30; i++){
-		for(j = 1; j <= n; j++){
-			temp_colour = rand() % n;
-			chromosomes[i]->colour[j] = temp_colour;
-			chromosomes[i]->used_colours[temp_colour] = noOfChromosomes; 
+		fscanf(inputFile, "%d" , &entries);
+		adjacencyMatrix(a, entries, p1, p2, inputFile);
+		n = entries;
+		for(i = 1; i <= 30; i++){
+			chromosomes[i] = (struct data *)malloc(sizeof(struct data));
 		}
-	}
+		//initiallizing used colour array with -1
+		for(i = 1; i <= 30; i++){
+			for(j = 1;j <= n; j++){
+				chromosomes[i]->used_colours[j-1] = -1;
+			}
+		}
+		//initialising population
+		srand( (unsigned) time(NULL) );
+		for(i = 1; i <= 30; i++){
+			for(j = 1; j <= n; j++){
+				temp_colour = rand() % n;
+				chromosomes[i]->colour[j] = temp_colour;
+				chromosomes[i]->used_colours[temp_colour] = noOfChromosomes; 
+			}
+		}
 	       
-	//validating and calculating fitness	
-	for(i = 1 ; i <= 30; i++){
-		check( &chromosomes[i] );
-		fitness( &chromosomes[i]) ;
-	}
-	min_no = chromosomes[1]->fitness;
-	while(ctr <= 2000){
-		//sorting chromosomes
-		sort_chroms(noOfChromosomes);
-		//performing crossover    
-		crossover(&chromosomes[1], &chromosomes[2], &chromosomes[11], &chromosomes[12]);
-		//performing mutation
-		probability= (rand() % noOfChromosomes) / noOfChromosomes;
-		if(probability < acceptance_prob)
-			special_mutation();
-		else   
-			mutation();
-		if(chromosomes[1]->fitness == min_no)
-			ctr++;
-		else 
-			ctr = 1;
+		//validating and calculating fitness	
+		for(i = 1 ; i <= 30; i++){
+			check( &chromosomes[i] );
+			fitness( &chromosomes[i]) ;
+		}
 		min_no = chromosomes[1]->fitness;
-	}	
-	end = clock();
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("%d(%f)\n", chromosomes[1]->fitness,time_spent);
-	return 0;
+		while(ctr <= noOfIterations){
+			//sorting chromosomes
+			sort_chroms(noOfChromosomes);
+			//performing crossover    
+			crossover(&chromosomes[1], &chromosomes[2], &chromosomes[11], &chromosomes[12]);
+			//performing mutation
+			probability= (rand() % noOfChromosomes) / noOfChromosomes;
+			if(probability < acceptance_prob)
+				special_mutation();
+			else   
+				mutation();
+			if(chromosomes[1]->fitness == min_no)
+				ctr++;
+			else 
+				ctr = 1;
+			min_no = chromosomes[1]->fitness;
+		}	
+		end = clock();
+		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+		printf("%d(%f)\n", chromosomes[1]->fitness,time_spent);
+	}		
+		return 0;
 }
 
 
