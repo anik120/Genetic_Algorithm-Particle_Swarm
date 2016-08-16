@@ -7,14 +7,18 @@
 #define SIZE 1000
 #define ITERATIONS 1000
 
+<<<<<<< HEAD
 void adjacencyMatrix(int n, int p1, int p2, FILE * inputF);
+=======
+void adjacencyMatrix(int n,int p1, int p2, FILE * inputF);
+>>>>>>> 1e7d56f96906b6915e016ca161213740d33583bc
 void particles_swarming(int n);
 void check(int n);
 void fitness(int n);
 int a[SIZE][SIZE], particles[SIZE][SIZE], used_colours[SIZE][SIZE], fit[PARTICLES];
 
 const char * files[]=
-{"DSJC125.1.col","DSJC125.5.col","DSJC125.9.col","DSJC250.1.col","DSJC250.5.col","DSJC250.9.col","DSJC500.1.col","DSJC500.5.col","DSJC500.9.col","DSJR500.1.col","DSJR500.1c.col","DSJR500.5.col","flat300_20_0.col","flat300_26_0.col","flat300_28_0.col","fpsol2.i.1.col","fpsol2.i.2.col","fpsol2.i.3.col","inithx.i.1.col","inithx.i.2.col","inithx.i.3.col","le450_15a.col","le450_15b.col","le450_15c.col","le450_15d.col","le450_25a.col","le450_25b.col","le450_25c.col","le450_25d.col","le450_5a.col","le450_5b.col","le450_5c.col","le450_5d.col","mulsol.i.1.col","mulsol.i.2.col","mulsol.i.3.col","mulsol.i.4.col","mulsol.i.5.col","school1.col","school1_nsh.col","zeroin.i.1.col","zeroin.i.2.col","zeroin.i.3.col","anna.col","david.col","homer.col","huck.col","jean.col","games120.col","miles1000.col","miles1500.col","miles250.col","miles500.col","miles750.col","queen10_10.col","queen11_11.col","queen12_12.col","queen13_13.col","queen14_14.col","queen15_15.col","queen16_16.col","queen5_5.col","queen6_6.col","queen7_7.col","queen8_12.col","queen8_8.col","queen9_9.col","myciel3.col","myciel4.col","myciel5.col","myciel6.col","myciel7.col"};
+{"DSJC125.1.col","DSJC125.5.col","DSJC250.1.col","DSJC250.5.col","DSJC250.9.col","DSJC500.1.col","DSJC500.5.col","DSJC500.9.col","DSJR500.1.col","DSJR500.1c.col","DSJR500.5.col","flat300_20_0.col","flat300_26_0.col","flat300_28_0.col","fpsol2.i.1.col","fpsol2.i.2.col","fpsol2.i.3.col","inithx.i.3.col","le450_15a.col","le450_15b.col","le450_15c.col","le450_15d.col","le450_25a.col","le450_25b.col","le450_25c.col","le450_25d.col","le450_5a.col","le450_5b.col","le450_5c.col","le450_5d.col","mulsol.i.4.col","mulsol.i.5.col","school1.col","school1_nsh.col","zeroin.i.1.col","zeroin.i.2.col","zeroin.i.3.col","anna.col","david.col","huck.col","jean.col","miles1500.col","miles250.col","miles500.col","miles750.col","queen10_10.col","queen11_11.col","queen12_12.col","queen13_13.col","queen14_14.col","queen16_16.col","queen5_5.col","queen6_6.col","queen7_7.col","queen8_12.col","queen8_8.col","queen9_9.col","myciel3.col","myciel5.col","myciel7.col"};
 
 
 int main()
@@ -40,6 +44,7 @@ int main()
 	exit(0);
 }
 
+<<<<<<< HEAD
 void adjacencyMatrix(int n, int p1, int p2, FILE * inputF){
 	int i, j;
 
@@ -74,13 +79,50 @@ void fitness(int n){
 		for(j = 1;j <= n; j++){
 			for(k = 1;k <= n; k++){
 				if(particles[i][k] == j){
+=======
+void adjacencyMatrix(int n,int p1, int p2, FILE * inputF){
+int i,j;
+
+	for(i=1;i<=n;i++)
+	  for(j=1;j<=n;j++)
+		a[i][j]=0;
+
+do{
+    for(i=1;i <=n; i++)
+    {
+        for(j = 1;j<=n; j++)
+        {   if(i==p1 && j == p2){
+                 a[i][j] = 1;
+                 a[j][i] = 1;
+            }
+        }
+        a[i][i] = 0;
+    }
+  }while(fscanf(inputF, "%d %d", &p1, &p2) !=EOF);
+  particles_swarming(n);
+  //exit(0);
+}
+
+void fitness(int n){
+	int i,j,k,temp;
+	for(i=1;i<=PARTICLES;i++){
+		temp=0;
+		for(j=1;j<=n;j++){
+			for(k=1;k<=n;k++){
+				if(particles[i][k]==j){
+>>>>>>> 1e7d56f96906b6915e016ca161213740d33583bc
 					temp++;
 					break;
 				}
 			}
 		}
+<<<<<<< HEAD
 	fit[i] = temp;
 	}
+=======
+	fit[i]=temp;	
+	}		
+>>>>>>> 1e7d56f96906b6915e016ca161213740d33583bc
 }
 
 void check(int n){
@@ -135,7 +177,11 @@ void particles_swarming(int n){
 	clock_t begin, end;
 	double time_spent;
 
+<<<<<<< HEAD
 	begin = clock();
+=======
+        begin = clock();
+>>>>>>> 1e7d56f96906b6915e016ca161213740d33583bc
 
 	srand( (unsigned) time(NULL) );
 	/*for(i=1;i<=n;i++){
@@ -143,12 +189,37 @@ void particles_swarming(int n){
 			printf("%d ",a[i][j]);}
 	printf("\n");
 	}*/
+<<<<<<< HEAD
 
 	//assigning random colours to generate initial population
 	for(i = 1;i <= PARTICLES; i++){
 		for(j = 1;j <= n; j++){
 			particles[i][j] = (rand() % n) + 1;
 		}
+=======
+        for(i=1;i<=PARTICLES;i++)
+		for(j=1;j<=n;j++)
+			particles[i][j]=(rand()%n)+1;
+    while(iterations<=ITERATIONS){		
+	for(i=1;i<=PARTICLES;i++)
+		for(j=1;j<=n;j++)
+			used_colours[i][j]=-1;
+
+    	for(i=1;i<=PARTICLES;i++)
+		for(j=1;j<=n;j++)
+			used_colours[i][particles[i][j]]=10;
+	check(n);
+	fitness(n);
+	/*printf("Particles:-   Fitness\n");
+	for(i=1;i<=PARTICLES;i++){
+		for(j=1;j<=n;j++){
+			printf("%d  ",particles[i][j]);}
+	printf("     %d\n",fit[i]); 	}*/
+	gbest=SIZE;
+	for(i=1;i<=PARTICLES;i++){
+		if(fit[i]<gbest)
+			gbest=fit[i];
+>>>>>>> 1e7d56f96906b6915e016ca161213740d33583bc
 	}
 	while(iterations <= ITERATIONS){		
 		for(i = 1;i <= PARTICLES; i++){
@@ -177,6 +248,7 @@ void particles_swarming(int n){
 				gbest = fit[i];
 			}
 		}
+<<<<<<< HEAD
 		//printf("Global best: %d\n",gbest);
 		//Particles approaching towards the gbest
 		for(i = 1;i <= PARTICLES; i++){
@@ -197,6 +269,39 @@ void particles_swarming(int n){
 					if(particles[i][j] == c_temp1){
 						particles[i][j] = c_temp2;
 					}
+=======
+	}
+	for(i=1;i<=PARTICLES;i++)
+		for(j=1;j<=n;j++)
+			used_colours[i][j]=-1;
+
+    	for(i=1;i<=PARTICLES;i++)
+		for(j=1;j<=n;j++)
+			used_colours[i][particles[i][j]]=10;
+	check(n);
+	fitness(n);
+	/*printf("Particles:-                             Fitness\n");
+	for(i=1;i<=PARTICLES;i++){
+		for(j=1;j<=n;j++){
+			printf("%d  ",particles[i][j]);}
+	printf("        %d\n",fit[i]); 	}*/
+	gbest=SIZE;
+	for(i=1;i<=PARTICLES;i++){
+		if(fit[i]<gbest)
+			gbest=fit[i];
+	}
+	//Trying to improve gbest
+	for(i=1;i<=PARTICLES;i++){
+		if(fit[i]==gbest){
+			index1=(rand()%n)+1;
+			c_temp1=particles[i][index1];
+			flag=0;
+			while(flag==0){
+				index2=(rand()%n)+1;
+				if(index2!=index1 && particles[i][index2]!=c_temp1){
+					flag=1;
+					c_temp2=particles[i][index2];
+>>>>>>> 1e7d56f96906b6915e016ca161213740d33583bc
 				}
 				ctr++;
 			}
@@ -250,6 +355,35 @@ void particles_swarming(int n){
 				used_colours[i][j] = -1;
 			}
 		}
+<<<<<<< HEAD
+=======
+	}
+	for(i=1;i<=PARTICLES;i++)
+		for(j=1;j<=n;j++)
+			used_colours[i][j]=-1;
+
+    	for(i=1;i<=PARTICLES;i++)
+		for(j=1;j<=n;j++)
+			used_colours[i][particles[i][j]]=10;
+	check(n);
+	fitness(n);
+	//printf("Particles:-                                Fitness\n");
+	/*for(i=1;i<=PARTICLES;i++){
+		for(j=1;j<=n;j++){
+			printf("%d  ",particles[i][j]);}
+	printf("            %d\n",fit[i]); 	}*/
+	gbest=SIZE;
+	for(i=1;i<=PARTICLES;i++){
+		if(fit[i]<gbest)
+			gbest=fit[i];
+	}
+        iterations++;
+   }	
+	printf("%d",gbest);
+        end = clock();
+        time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("(%f)\n",time_spent);
+>>>>>>> 1e7d56f96906b6915e016ca161213740d33583bc
 
 		for(i = 1;i <= PARTICLES; i++){
 			for(j = 1;j <= n; j++){
