@@ -283,8 +283,8 @@ void crossover(int n, int a[SIZE][SIZE]){
 		// storing new chromosome if fitness is better than worse chromosomes(replacing worse chromosomes).
 		if(fit_new1 <= fit_new2){
 			if(fit_new1 < unique[10]){
-			       for(i = 1;i <= n;i++)
-				  		colour[noOfChromosomes][i] = temp1[i];
+				for(i = 1;i <= n;i++)
+					colour[noOfChromosomes][i] = temp1[i];
 				}
 			if(fit_new2 < unique[9]){
 					for(i = 1;i < 10; i++)
@@ -304,13 +304,13 @@ void crossover(int n, int a[SIZE][SIZE]){
 						colour[9][i] = temp1[i];
 				}
 		}
-		printf("\n");
+		/*printf("\n");
 		for(i = 1; i <= 10; i++){
 				for(j = 1; j <= n; j++){
 						printf("%d", colour[i][j]);
 					}
 			printf("\n");
-			}
+			}*/
 			
 		fitness(a, colour, n);
 		sort_chroms(n);
@@ -383,7 +383,7 @@ int calc(int chrom[SIZE],int n){
 } 
 
 void mutation(int a[SIZE][SIZE], int n){
-	int index, vertex, zero, flag=0, c_temp, i, j, k, temp_colour[SIZE], fit1, fit2, flag1=0, used_cols[SIZE];
+	int index, vertex, zero, flag=0, c_temp, i, j, k, temp_colour[SIZE], fit1, fit2, flag1 = 0, used_cols[SIZE];
 	srand( (unsigned) time(NULL) );
 	index=( rand() % noOfChromosomes) + 1;
 	//Copying into new array to generate neighbour
